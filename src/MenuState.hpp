@@ -21,6 +21,7 @@ public:
     
     virtual void update();
     virtual void render();
+    virtual void handleInput();
 
     virtual bool onEnter();
     virtual bool onExit();

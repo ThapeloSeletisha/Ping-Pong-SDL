@@ -6,17 +6,19 @@ const StateID PlayState::s_ID = PLAY;
 
 void PlayState::update()
 {
+    m_ball.update();
+    m_leftPaddle.update();
+    m_rightPaddle.update();
+}
+
+void PlayState::handleInput()
+{
     if (InputHandler::getMouseButtonState(RIGHT))
     {
         GameStateMachine::changeState(new MenuState());
     }
-    
     m_leftPaddle.handleInput();
     m_rightPaddle.handleInput();
-
-    m_ball.update();
-    m_leftPaddle.update();
-    m_rightPaddle.update();
 }
 
 void PlayState::render()

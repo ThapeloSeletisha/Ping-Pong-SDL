@@ -62,6 +62,7 @@ void GameStateMachine::I_update()
 {
     if (!m_gameStates.empty())
     {
+        m_gameStates.top()->handleInput();
         m_gameStates.top()->update();
     }
 }

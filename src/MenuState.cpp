@@ -27,6 +27,11 @@ void MenuState::render()
     // empty
 }
 
+void MenuState::handleInput()
+{
+    
+}
+
 bool MenuState::onEnter()
 {
     cout << "entering MenuState" << endl;
