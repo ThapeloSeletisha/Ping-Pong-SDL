@@ -47,7 +47,7 @@ void Paddle::clean()
 
 void Paddle::handleInput()
 {
-
+    
 }
 
 SDL_Rect Paddle::getPosition()
