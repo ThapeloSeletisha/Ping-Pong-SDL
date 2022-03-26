@@ -10,15 +10,17 @@ void PlayState::update()
     {
         GameStateMachine::changeState(new MenuState());
     }
+    ball.update();
 }
 
 void PlayState::render()
 {
-    // empty
+    ball.draw();
 }
 
 bool PlayState::onEnter()
 {
+    ball = Ball(100, 100);
     cout << "entering PlayState" << endl;
     return true;
 }
