@@ -47,7 +47,16 @@ void Paddle::clean()
 
 void Paddle::handleInput()
 {
-    
+    if (InputHandler::isKeyDown(SDL_SCANCODE_UP) ||
+        InputHandler::isKeyDown(SDL_SCANCODE_W))
+    {
+        m_position.y -= 3;
+    }
+    if (InputHandler::isKeyDown(SDL_SCANCODE_DOWN) ||
+        InputHandler::isKeyDown(SDL_SCANCODE_S))
+    {
+        m_position.y += 3;
+    }
 }
 
 SDL_Rect Paddle::getPosition()
