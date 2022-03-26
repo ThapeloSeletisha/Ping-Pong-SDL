@@ -17,4 +17,6 @@ public:
     virtual void update() = 0;
     virtual void clean() = 0;
     virtual void handleInput() = 0;
+
+    virtual SDL_Rect getPosition() = 0;
 };

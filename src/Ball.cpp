@@ -21,12 +21,8 @@ Ball::Ball(int x, int y)
         return;
     }
 
-    srcRect.x = srcRect.y = 0;
-    srcRect.w = pSurface->w;
-    srcRect.h = pSurface->h;
-
-    dstRect.x = x; dstRect.y = y;
-    dstRect.w = dstRect.h = 30;
+    m_position.x = x; m_position.y = y;
+    m_position.w = m_position.h = 30;
     SDL_FreeSurface(pSurface);
 }
 
@@ -38,7 +34,7 @@ Ball::~Ball()
 
 void Ball::draw()
 {
-    SDL_RenderCopy(Game::getRenderer(), m_pTexture, nullptr, &dstRect);
+    SDL_RenderCopy(Game::getRenderer(), m_pTexture, nullptr, &m_position);
 }
 
 void Ball::update()
@@ -54,4 +50,9 @@ void Ball::clean()
 void Ball::handleInput()
 {
     
+}
+
+SDL_Rect Ball::getPosition()
+{
+    return m_position;
 }

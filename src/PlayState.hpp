@@ -10,8 +10,8 @@ class PlayState : public GameState
 private:
 
     static const StateID s_ID;
-    Ball ball;
-    Paddle leftPaddle, rightPaddle;
+    Ball m_ball;
+    Paddle m_leftPaddle, m_rightPaddle;
 
 public:
 

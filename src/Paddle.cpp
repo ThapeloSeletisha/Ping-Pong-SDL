@@ -49,3 +49,8 @@ void Paddle::handleInput()
 {
 
 }
+
+SDL_Rect Paddle::getPosition()
+{
+    return m_position;
+}

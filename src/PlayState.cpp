@@ -10,21 +10,21 @@ void PlayState::update()
     {
         GameStateMachine::changeState(new MenuState());
     }
-    ball.update();
+    m_ball.update();
 }
 
 void PlayState::render()
 {
-    leftPaddle.draw();
-    rightPaddle.draw();
-    ball.draw();
+    m_leftPaddle.draw();
+    m_rightPaddle.draw();
+    m_ball.draw();
 }
 
 bool PlayState::onEnter()
 {
-    ball = Ball(100, 100);
-    leftPaddle = Paddle(LEFT);
-    rightPaddle = Paddle(RIGHT);
+    m_ball = Ball(100, 100);
+    m_leftPaddle = Paddle(LEFT);
+    m_rightPaddle = Paddle(RIGHT);
     cout << "entering PlayState" << endl;
     return true;
 }

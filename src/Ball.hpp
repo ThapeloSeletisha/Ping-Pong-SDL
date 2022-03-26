@@ -9,14 +9,17 @@ class Ball :  public GameObject
 {
 private:
     SDL_Texture* m_pTexture;
-    SDL_Rect srcRect, dstRect;
+    SDL_Rect m_position;
 
 public:
 
     Ball(int x = 0, int y = 0);
     ~Ball();
+
     void draw();
     void update();
     void clean();
     void handleInput();
+
+    SDL_Rect getPosition();
 };
