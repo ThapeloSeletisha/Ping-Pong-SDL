@@ -15,12 +15,16 @@ void PlayState::update()
 
 void PlayState::render()
 {
+    leftPaddle.draw();
+    rightPaddle.draw();
     ball.draw();
 }
 
 bool PlayState::onEnter()
 {
     ball = Ball(100, 100);
+    leftPaddle = Paddle(LEFT);
+    rightPaddle = Paddle(RIGHT);
     cout << "entering PlayState" << endl;
     return true;
 }

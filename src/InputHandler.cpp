@@ -109,7 +109,7 @@ void InputHandler::clean()
     Instance()->I_clean();
 }
 
-bool InputHandler::I_getMouseButtonState(MouseButton button)
+bool InputHandler::I_getMouseButtonState(Side button)
 {
     return m_mouseButtonStates[button];
 }
@@ -122,7 +122,7 @@ Args:
 Returns:
     true if button is down and false otherwise
 */
-bool InputHandler::getMouseButtonState(MouseButton button)
+bool InputHandler::getMouseButtonState(Side button)
 {
     return Instance()->I_getMouseButtonState(button);
 }

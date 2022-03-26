@@ -50,3 +50,8 @@ void Ball::clean()
 {
 
 }
+
+void Ball::handleInput()
+{
+    
+}

@@ -5,14 +5,12 @@
 #include <string>
 #include "Game.hpp"
 #include "Vector2D.hpp"
+#include "Side.hpp"
 using namespace std;
 
 // Consider adding onKeyDown() and onKeyUp() functions
 
-enum MouseButton
-{
-    LEFT, MIDDLE, RIGHT
-};
+
 
 class InputHandler
 {
@@ -33,7 +31,7 @@ private:
     void I_update();
     void I_clean();
 
-    bool I_getMouseButtonState(MouseButton button);
+    bool I_getMouseButtonState(Side button);
     bool I_isKeyDown(SDL_Scancode key);
 
 public:
@@ -41,7 +39,7 @@ public:
     static void update();
     static void clean();
 
-    static bool getMouseButtonState(MouseButton button);
+    static bool getMouseButtonState(Side button);
     static bool isKeyDown(SDL_Scancode key);
     static const Vector2D& getMousePosition();
 
