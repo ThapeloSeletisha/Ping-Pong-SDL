@@ -1,10 +1,11 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_image.h> 
 #include "Game.hpp"
+#include "GameObject.hpp"
 using namespace std;
 
-class Ball 
+class Ball :  public GameObject
 {
 private:
     SDL_Texture* m_pTexture;

@@ -48,5 +48,5 @@ void Ball::update()
 
 void Ball::clean()
 {
-    
+
 }
