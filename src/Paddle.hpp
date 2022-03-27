@@ -8,7 +8,8 @@ using namespace std;
 class Paddle : public GameObject
 {
 private:
-    SDL_Rect m_position;
+    Vector2D m_position;
+    int m_width, m_height;
     Side m_side;
 
 public:
@@ -20,6 +21,6 @@ public:
     void clean();
     void handleInput();
 
-    SDL_Rect getPosition();
+    Vector2D getPosition();
 
 };

@@ -8,12 +8,11 @@ using namespace std;
 class Ball :  public GameObject
 {
 private:
-    SDL_Texture* m_pTexture;
-    SDL_Rect m_position;
+    
 
 public:
 
-    Ball(int x = 0, int y = 0);
+    Ball(int x = 0, int y = 0, int width = 30, int height = 30);
     ~Ball();
 
     void draw();
@@ -21,5 +20,5 @@ public:
     void clean();
     void handleInput();
 
-    SDL_Rect getPosition();
+    Vector2D getPosition();
 };

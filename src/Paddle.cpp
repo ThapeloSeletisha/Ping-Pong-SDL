@@ -6,10 +6,10 @@ Paddle::Paddle(Side side)
     switch (m_side)
     {
     case LEFT:
-        m_position.x = 20;
-        m_position.y = 50;
-        m_position.w = 15;
-        m_position.h = 80;
+        m_position.setX(20);
+        m_position.setY(50);
+        m_width = 15;
+        m_height = 80;
         break;
 
     case MIDDLE:
@@ -20,24 +20,29 @@ Paddle::Paddle(Side side)
         int w, h;
         SDL_GetRendererOutputSize(
             Game::getRenderer(), &w, &h);
-        m_position.x = w - 40;
-        m_position.y = 50;
-        m_position.w = 15;
-        m_position.h = 80;
+        m_position.setX(w - 40);
+        m_position.setY(50);
+        m_width = 15;
+        m_height = 80;
         break;
     }
 }
 
 void Paddle::draw()
 {
+    SDL_Rect dstRect;
+    dstRect.x = m_position.getX();
+    dstRect.y = m_position.getY();
+    dstRect.w = m_width;
+    dstRect.h = m_height;
     SDL_SetRenderDrawColor(Game::getRenderer(), 255, 255, 255, 255);
-    SDL_RenderFillRect(Game::getRenderer(), &m_position);
+    SDL_RenderFillRect(Game::getRenderer(), &dstRect);
     SDL_SetRenderDrawColor(Game::getRenderer(), 0, 0, 0, 255);
 }
 
 void Paddle::update()
 {
-
+    m_position += m_velocity;
 }
 
 void Paddle::clean()
@@ -47,19 +52,26 @@ void Paddle::clean()
 
 void Paddle::handleInput()
 {
-    if (InputHandler::isKeyDown(SDL_SCANCODE_UP) ||
-        InputHandler::isKeyDown(SDL_SCANCODE_W))
+    bool up = InputHandler::isKeyDown(SDL_SCANCODE_UP) ||
+        InputHandler::isKeyDown(SDL_SCANCODE_W);
+    bool down = InputHandler::isKeyDown(SDL_SCANCODE_DOWN) ||
+        InputHandler::isKeyDown(SDL_SCANCODE_S);
+    if (up && down)
     {
-        m_position.y -= 3;
+        m_velocity.setY(0);
     }
-    if (InputHandler::isKeyDown(SDL_SCANCODE_DOWN) ||
-        InputHandler::isKeyDown(SDL_SCANCODE_S))
+    else if (up) {
+        m_velocity.setY(-3);
+    }
+    else if (down)
     {
-        m_position.y += 3;
+        m_velocity.setY(3);
+    } else {
+        m_velocity.setY(0);
     }
 }
 
-SDL_Rect Paddle::getPosition()
+Vector2D Paddle::getPosition()
 {
     return m_position;
 }

@@ -2,13 +2,16 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "TextureManager.hpp"
 
 using namespace std;
 
 class GameObject
 { 
-private:
-
+protected:
+    Vector2D m_position, m_velocity, m_acceleration;
+    int m_width, m_height;
+    
 public:
     GameObject(){};
     virtual ~GameObject(){};
@@ -18,5 +21,5 @@ public:
     virtual void clean() = 0;
     virtual void handleInput() = 0;
 
-    virtual SDL_Rect getPosition() = 0;
+    virtual Vector2D getPosition() = 0;
 };

@@ -1,7 +1,7 @@
 #include "Vector2D.hpp"
 
 Vector2D::Vector2D():
-    m_x(-1), m_y(-1){}
+    m_x(0), m_y(0){}
 
 Vector2D::Vector2D(double x, double y): 
     m_x(x), m_y(y){}
