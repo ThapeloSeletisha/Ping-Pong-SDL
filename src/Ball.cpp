@@ -11,7 +11,7 @@ Ball::Ball(int radius)
         &windowWidth, &windowHeight);
 
     srand(time(0));
-    int initBallY = rand() % (windowHeight - radius * 2);
+    int initBallY = rand() % (windowHeight - (radius * 2));
 
     m_position.setX(windowWidth / 2 - radius);
     m_position.setY(initBallY);

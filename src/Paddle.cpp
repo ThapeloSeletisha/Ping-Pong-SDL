@@ -2,12 +2,15 @@
 
 Paddle::Paddle(Side side)
 {
+    int windowWidth, windowHeight;
+    SDL_GetRendererOutputSize(
+        Game::getRenderer(), &windowWidth, &windowHeight);
     m_side = side;
     switch (m_side)
     {
     case LEFT:
         m_position.setX(20);
-        m_position.setY(50);
+        m_position.setY(windowHeight / 2 - 40);
         m_width = 15;
         m_height = 80;
         break;
@@ -17,11 +20,8 @@ Paddle::Paddle(Side side)
         break;
 
     case RIGHT:
-        int windowWidth, windowHeight;
-        SDL_GetRendererOutputSize(
-            Game::getRenderer(), &windowWidth, &windowHeight);
         m_position.setX(windowWidth - 40);
-        m_position.setY(50);
+        m_position.setY(windowHeight / 2 - 40);
         m_width = 15;
         m_height = 80;
         break;
