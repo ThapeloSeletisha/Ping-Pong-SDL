@@ -17,10 +17,10 @@ Paddle::Paddle(Side side)
         break;
 
     case RIGHT:
-        int w, h;
+        int windowWidth, windowHeight;
         SDL_GetRendererOutputSize(
-            Game::getRenderer(), &w, &h);
-        m_position.setX(w - 40);
+            Game::getRenderer(), &windowWidth, &windowHeight);
+        m_position.setX(windowWidth - 40);
         m_position.setY(50);
         m_width = 15;
         m_height = 80;
@@ -42,7 +42,21 @@ void Paddle::draw()
 
 void Paddle::update()
 {
+    int windowWidth, windowHeight;
+    SDL_GetRendererOutputSize(
+        Game::getRenderer(), &windowWidth, &windowHeight);
+    
     m_position += m_velocity;
+
+    // Bound paddle movement
+    if (m_position.getY() < 0)
+    {
+        m_position.setY(0);
+    }
+    else if (m_position.getY() + m_height > windowHeight)
+    {
+        m_position.setY(windowHeight - m_height);
+    }
 }
 
 void Paddle::clean()
