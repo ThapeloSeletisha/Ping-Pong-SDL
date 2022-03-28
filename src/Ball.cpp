@@ -18,6 +18,10 @@ Ball::Ball(int radius)
 
     m_width = radius * 2;
     m_height = radius * 2;
+
+    // Randomizes between -3 and 3 for both axis
+    m_velocity.setX(6 * (rand() % 2) - 3);
+    m_velocity.setY(6 * (rand() % 2) - 3);
 }
 
 Ball::~Ball()
@@ -34,7 +38,7 @@ void Ball::draw()
 
 void Ball::update()
 {
-
+    m_position += m_velocity;
 }
 
 void Ball::clean()
