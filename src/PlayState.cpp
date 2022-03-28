@@ -30,7 +30,8 @@ void PlayState::render()
 
 bool PlayState::onEnter()
 {
-    m_ball = Ball(100, 100);
+    
+    
     m_leftPaddle = Paddle(LEFT);
     m_rightPaddle = Paddle(RIGHT);
     cout << "entering PlayState" << endl;

@@ -1,14 +1,23 @@
 #include "Ball.hpp"
 #include <stdio.h>
-Ball::Ball(int x, int y, int width, int height)
+
+Ball::Ball(int radius)
 {
     string path = "assets/ball.png";
     TextureManager::loadTexture("ball", path, Game::getRenderer());
 
-    m_position.setX(x);
-    m_position.setY(y);
-    m_width = width;
-    m_height = height;
+    int windowWidth, windowHeight;
+    SDL_GetRendererOutputSize(Game::getRenderer(),
+        &windowWidth, &windowHeight);
+
+    srand(time(0));
+    int initBallY = rand() % (windowHeight - radius * 2);
+
+    m_position.setX(windowWidth / 2 - radius);
+    m_position.setY(initBallY);
+
+    m_width = radius * 2;
+    m_height = radius * 2;
 }
 
 Ball::~Ball()

@@ -12,7 +12,7 @@ private:
 
 public:
 
-    Ball(int x = 0, int y = 0, int width = 30, int height = 30);
+    Ball(int radius = 15);
     ~Ball();
 
     void draw();
