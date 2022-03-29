@@ -84,8 +84,3 @@ void Paddle::handleInput()
         m_velocity.setY(0);
     }
 }
-
-Vector2D Paddle::getPosition()
-{
-    return m_position;
-}

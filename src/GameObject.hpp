@@ -21,5 +21,5 @@ public:
     virtual void clean() = 0;
     virtual void handleInput() = 0;
 
-    virtual Vector2D getPosition() = 0;
+    virtual Vector2D getPosition() {return m_position;};
 };

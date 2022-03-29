@@ -50,8 +50,3 @@ void Ball::handleInput()
 {
     
 }
-
-Vector2D Ball::getPosition()
-{
-    return m_position;
-}

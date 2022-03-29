@@ -20,5 +20,4 @@ public:
     void clean();
     void handleInput();
 
-    Vector2D getPosition();
 };
