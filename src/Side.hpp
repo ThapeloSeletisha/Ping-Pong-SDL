@@ -1,5 +1,5 @@
 #pragma once
 enum Side
 {
-    LEFT, MIDDLE, RIGHT
+    LEFT, MIDDLE, RIGHT, UP, DOWN
 };

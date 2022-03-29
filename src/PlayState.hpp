@@ -13,6 +13,8 @@ private:
     Ball m_ball;
     Paddle m_leftPaddle, m_rightPaddle;
 
+    void detectCollisions();
+
 public:
 
     PlayState(){};

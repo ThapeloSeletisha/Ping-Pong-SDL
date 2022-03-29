@@ -50,3 +50,28 @@ void Ball::handleInput()
 {
     
 }
+
+void Ball::bounce(Side direction)
+{
+    switch (direction){
+        case LEFT:
+            m_velocity.setX(-1 * abs(m_velocity.getX()));
+            break;
+
+        case RIGHT:
+            m_velocity.setX(abs(m_velocity.getX()));
+            break;
+
+        case UP:
+            m_velocity.setY(-1 * abs(m_velocity.getY()));
+            break;
+
+        case DOWN:
+            m_velocity.setY(abs(m_velocity.getY()));
+            break;
+
+        default:
+            break;
+    }
+
+}

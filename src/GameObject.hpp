@@ -22,4 +22,6 @@ public:
     virtual void handleInput() = 0;
 
     virtual Vector2D getPosition() {return m_position;};
+    virtual int getWidth() {return m_width;};
+    virtual int getHeight() {return m_height;};
 };

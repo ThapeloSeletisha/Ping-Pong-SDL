@@ -20,4 +20,6 @@ public:
     void clean();
     void handleInput();
 
+    void bounce(Side direction);
+
 };

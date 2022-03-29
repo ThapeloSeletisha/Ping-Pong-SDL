@@ -25,6 +25,9 @@ Paddle::Paddle(Side side)
         m_width = 15;
         m_height = 80;
         break;
+
+    default:
+        break;
     }
 }
 
