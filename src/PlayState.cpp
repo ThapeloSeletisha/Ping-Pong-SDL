@@ -47,35 +47,33 @@ StateID PlayState::getStateID() const
     return s_ID;
 }
 
+
 void PlayState::detectCollisions()
 {
-    int ball_x = m_ball.getPosition().getX();
-    int ball_y = m_ball.getPosition().getY();
-    int ball_w = m_ball.getWidth();
-    int ball_h = m_ball.getHeight();
-
-    int leftPaddle_x = m_leftPaddle.getPosition().getX();
-    int leftPaddle_y = m_leftPaddle.getPosition().getY();
-    int leftPaddle_w = m_leftPaddle.getWidth();
-    int leftPaddle_h = m_leftPaddle.getHeight();
-
-    int rightPaddle_x = m_rightPaddle.getPosition().getX();
-    int rightPaddle_y = m_rightPaddle.getPosition().getY();
-    int rightPaddle_w = m_rightPaddle.getWidth();
-    int rightPaddle_h = m_rightPaddle.getHeight();
-
     int windowWidth, windowHeight;
     SDL_GetRendererOutputSize(Game::getRenderer(), 
         &windowWidth, &windowHeight);
 
-    if (ball_y < 0)
+    Vector2D topLeft = Vector2D(0, 0);
+    Vector2D topRight = Vector2D(windowWidth, 0);
+    Vector2D bottomLeft = Vector2D(0, windowHeight);
+    Vector2D bottomRight = Vector2D(windowWidth, windowHeight);
+
+    Vector2D ballCentre;
+    int ball_r = m_ball.getHeight() / 2;
+    ballCentre.setX(m_ball.getPosition().getX() + ball_r);
+    ballCentre.setY(m_ball.getPosition().getY() + ball_r);
+
+    Vector2D ballTopClamp = Vector2D::clampVector(topLeft, topRight, ballCentre);
+    Vector2D ballBottomClamp = Vector2D::clampVector(bottomLeft, bottomRight, ballCentre);
+
+    if ((ballTopClamp - ballCentre).length() < ball_r)
     {
         m_ball.bounce(DOWN);
     }
-    if (ball_y + ball_h > windowHeight)
+    else if ((ballBottomClamp - ballCentre).length() < ball_r)
     {
         m_ball.bounce(UP);
     }
 
-    
 }

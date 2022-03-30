@@ -8,6 +8,7 @@ class Vector2D
 {
 private:
     double m_x, m_y;
+    static int clampScalar(int boundary_1, int boundary_2, int value);
 
 public:
 
@@ -30,6 +31,8 @@ public:
 
     Vector2D operator/(double scalar) const;
     Vector2D& operator/=(double scalar);
+
+    static Vector2D clampVector(Vector2D corner_1, Vector2D corner_2, Vector2D point);
 
     operator string() const;
 

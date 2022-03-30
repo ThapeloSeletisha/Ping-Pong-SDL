@@ -101,6 +101,26 @@ Vector2D& Vector2D::operator/=(double scalar)
     return *this;
 }
 
+Vector2D Vector2D::clampVector(Vector2D corner_1, Vector2D corner_2, Vector2D point)
+{
+    int x = clampScalar(corner_1.getX(), corner_2.getX(), point.getX());
+    int y = clampScalar(corner_1.getY(), corner_2.getY(), point.getY());
+    return Vector2D(x, y);
+}
+
+int Vector2D::clampScalar(int boundary_1, int boundary_2, int value)
+{
+    if (value > max(boundary_1, boundary_2))
+    {
+        return max(boundary_1, boundary_2);
+    }
+    else if (value < min(boundary_1, boundary_2))
+    {
+        return min(boundary_1, boundary_2);
+    }
+    return value;
+}
+
 Vector2D::operator string() const
 {
     return to_string(m_x) + "," + to_string(m_y);
