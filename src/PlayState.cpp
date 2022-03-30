@@ -50,34 +50,17 @@ StateID PlayState::getStateID() const
 
 void PlayState::detectCollisions()
 {
-    int windowWidth, windowHeight;
-    SDL_GetRendererOutputSize(Game::getRenderer(), 
-        &windowWidth, &windowHeight);
-
-    Vector2D topLeft = Vector2D(0, 0);
-    Vector2D topRight = Vector2D(windowWidth, 0);
-    Vector2D bottomLeft = Vector2D(0, windowHeight);
-    Vector2D bottomRight = Vector2D(windowWidth, windowHeight);
-
     Vector2D ballCentre;
     int ball_r = m_ball.getHeight() / 2;
     ballCentre.setX(m_ball.getPosition().getX() + ball_r);
     ballCentre.setY(m_ball.getPosition().getY() + ball_r);
 
-    Vector2D ballTopClamp = Vector2D::clampVector(topLeft, topRight, ballCentre);
-    Vector2D ballBottomClamp = Vector2D::clampVector(bottomLeft, bottomRight, ballCentre);
+    ballPaddleCollission(ball_r, ballCentre);
+    ballEdgeCollision(ball_r, ballCentre);
+}
 
-    if ((ballTopClamp - ballCentre).length() < ball_r)
-    {
-        m_ball.bounce(DOWN);
-    }
-    else if ((ballBottomClamp - ballCentre).length() < ball_r)
-    {
-        m_ball.bounce(UP);
-    }
-
-    /*****************************************************************************************/
-
+void PlayState::ballPaddleCollission(int ballRadius, Vector2D ballCentre)
+{
     int paddleWidth = m_leftPaddle.getWidth();
     int paddleHeight = m_leftPaddle.getHeight();
 
@@ -96,7 +79,7 @@ void PlayState::detectCollisions()
     Vector2D ballRightPaddleClamp = Vector2D::clampVector(
         rightPaddleCornerTL, rightPaddleCornerBR, ballCentre);
 
-    if ((ballLeftPaddleClamp - ballCentre).length() < ball_r)
+    if ((ballLeftPaddleClamp - ballCentre).length() < ballRadius)
     {
         cout << "left paddle collision" << endl;
         if (ballLeftPaddleClamp.getX() == leftPaddleCornerBR.getX())
@@ -124,7 +107,7 @@ void PlayState::detectCollisions()
             }
         }
     }
-    else if ((ballRightPaddleClamp - ballCentre).length() < ball_r)
+    else if ((ballRightPaddleClamp - ballCentre).length() < ballRadius)
     {
         cout << "right paddle collision" << endl;
         if (ballRightPaddleClamp.getX() == rightPaddleCornerTL.getX())
@@ -153,5 +136,28 @@ void PlayState::detectCollisions()
         }
 
     }
+}
 
+void PlayState::ballEdgeCollision(int ballRadius, Vector2D ballCentre)
+{
+    int windowWidth, windowHeight;
+    SDL_GetRendererOutputSize(Game::getRenderer(), 
+        &windowWidth, &windowHeight);
+
+    Vector2D topLeft = Vector2D(0, 0);
+    Vector2D topRight = Vector2D(windowWidth, 0);
+    Vector2D bottomLeft = Vector2D(0, windowHeight);
+    Vector2D bottomRight = Vector2D(windowWidth, windowHeight);
+
+    Vector2D ballTopClamp = Vector2D::clampVector(topLeft, topRight, ballCentre);
+    Vector2D ballBottomClamp = Vector2D::clampVector(bottomLeft, bottomRight, ballCentre);
+
+    if ((ballTopClamp - ballCentre).length() < ballRadius)
+    {
+        m_ball.bounce(DOWN);
+    }
+    else if ((ballBottomClamp - ballCentre).length() < ballRadius)
+    {
+        m_ball.bounce(UP);
+    }
 }

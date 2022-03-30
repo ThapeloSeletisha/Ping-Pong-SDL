@@ -14,6 +14,8 @@ private:
     Paddle m_leftPaddle, m_rightPaddle;
 
     void detectCollisions();
+    void ballPaddleCollission(int ballRadius, Vector2D ballCentre);
+    void ballEdgeCollision(int ballRadius, Vector2D ballCentre);
 
 public:
 
