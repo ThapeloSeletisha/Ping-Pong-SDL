@@ -102,10 +102,26 @@ void PlayState::detectCollisions()
         if (ballLeftPaddleClamp.getX() == leftPaddleCornerBR.getX())
         {
             m_ball.bounce(RIGHT);
+
+            if (ballLeftPaddleClamp.getY() == leftPaddleCornerTL.getY())
+            {
+                m_ball.bounce(UP);
+            }
+            else if (ballLeftPaddleClamp.getY() == leftPaddleCornerBR.getY())
+            {
+                m_ball.bounce(DOWN);
+            }
         }
         else 
         {
-            
+            if (ballRightPaddleClamp.getY() == rightPaddleCornerTL.getY())
+            {
+                m_ball.bounce(UP);
+            }
+            else if (ballRightPaddleClamp.getY() == rightPaddleCornerBR.getY())
+            {
+                m_ball.bounce(DOWN);
+            }
         }
     }
     else if ((ballRightPaddleClamp - ballCentre).length() < ball_r)
@@ -114,10 +130,26 @@ void PlayState::detectCollisions()
         if (ballRightPaddleClamp.getX() == rightPaddleCornerTL.getX())
         {
             m_ball.bounce(LEFT);
+
+            if (ballRightPaddleClamp.getY() == rightPaddleCornerTL.getY())
+            {
+                m_ball.bounce(UP);
+            }
+            else if (ballRightPaddleClamp.getY() == rightPaddleCornerBR.getY())
+            {
+                m_ball.bounce(DOWN);
+            }
         }
         else
         {
-            
+            if (ballRightPaddleClamp.getY() == rightPaddleCornerTL.getY())
+            {
+                m_ball.bounce(UP);
+            }
+            else if (ballRightPaddleClamp.getY() == rightPaddleCornerBR.getY())
+            {
+                m_ball.bounce(DOWN);
+            }
         }
 
     }
