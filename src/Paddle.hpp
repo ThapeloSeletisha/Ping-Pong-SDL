@@ -8,18 +8,15 @@ using namespace std;
 class Paddle : public GameObject
 {
 private:
-    Vector2D m_position;
-    int m_width, m_height;
     Side m_side;
 
 public:
     Paddle(){};
     Paddle(Side side);
+    ~Paddle(){};
 
     void draw();
     void update();
     void clean();
     void handleInput();
-
-
 };

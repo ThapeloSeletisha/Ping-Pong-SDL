@@ -76,4 +76,50 @@ void PlayState::detectCollisions()
         m_ball.bounce(UP);
     }
 
+    /*****************************************************************************************/
+
+    int paddleWidth = m_leftPaddle.getWidth();
+    int paddleHeight = m_leftPaddle.getHeight();
+
+    Vector2D leftPaddleCornerTL = m_leftPaddle.getPosition();
+    Vector2D leftPaddleCornerBR;
+    leftPaddleCornerBR.setX(leftPaddleCornerTL.getX() + paddleWidth);
+    leftPaddleCornerBR.setY(leftPaddleCornerTL.getY() + paddleHeight);
+
+    Vector2D rightPaddleCornerTL = m_rightPaddle.getPosition();
+    Vector2D rightPaddleCornerBR;
+    rightPaddleCornerBR.setX(rightPaddleCornerTL.getX() + paddleWidth);
+    rightPaddleCornerBR.setY(rightPaddleCornerTL.getY() + paddleHeight);
+
+    Vector2D ballLeftPaddleClamp = Vector2D::clampVector(
+        leftPaddleCornerTL, leftPaddleCornerBR, ballCentre);
+    Vector2D ballRightPaddleClamp = Vector2D::clampVector(
+        rightPaddleCornerTL, rightPaddleCornerBR, ballCentre);
+
+    if ((ballLeftPaddleClamp - ballCentre).length() < ball_r)
+    {
+        cout << "left paddle collision" << endl;
+        if (ballLeftPaddleClamp.getX() == leftPaddleCornerBR.getX())
+        {
+            m_ball.bounce(RIGHT);
+        }
+        else 
+        {
+            
+        }
+    }
+    else if ((ballRightPaddleClamp - ballCentre).length() < ball_r)
+    {
+        cout << "right paddle collision" << endl;
+        if (ballRightPaddleClamp.getX() == rightPaddleCornerTL.getX())
+        {
+            m_ball.bounce(LEFT);
+        }
+        else
+        {
+            
+        }
+
+    }
+
 }

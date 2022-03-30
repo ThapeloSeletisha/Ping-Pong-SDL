@@ -78,11 +78,11 @@ void Paddle::handleInput()
         m_velocity.setY(0);
     }
     else if (up) {
-        m_velocity.setY(-3);
+        m_velocity.setY(-5);
     }
     else if (down)
     {
-        m_velocity.setY(3);
+        m_velocity.setY(5);
     } else {
         m_velocity.setY(0);
     }
