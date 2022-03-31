@@ -57,6 +57,11 @@ void PlayState::detectCollisions()
 
     ballPaddleCollission(ball_r, ballCentre);
     ballEdgeCollision(ball_r, ballCentre);
+
+    if (gameOver(ball_r, ballCentre))
+    {
+        cout << "Game over!!!" << endl;
+    }
 }
 
 void PlayState::ballPaddleCollission(int ballRadius, Vector2D ballCentre)
@@ -160,4 +165,30 @@ void PlayState::ballEdgeCollision(int ballRadius, Vector2D ballCentre)
     {
         m_ball.bounce(UP);
     }
+}
+
+bool PlayState::gameOver(int ballRadius, Vector2D ballCentre)
+{
+    int windowWidth, windowHeight;
+    SDL_GetRendererOutputSize(Game::getRenderer(), 
+        &windowWidth, &windowHeight);
+
+    Vector2D topLeft = Vector2D(0, 0);
+    Vector2D topRight = Vector2D(windowWidth, 0);
+    Vector2D bottomLeft = Vector2D(0, windowHeight);
+    Vector2D bottomRight = Vector2D(windowWidth, windowHeight);
+
+    Vector2D ballLeftClamp = Vector2D::clampVector(topLeft, bottomLeft, ballCentre);
+    Vector2D ballRightClamp = Vector2D::clampVector(topRight, bottomRight, ballCentre);
+
+    if ((ballLeftClamp - ballCentre).length() < ballRadius)
+    {
+        return true;
+    }
+    else if ((ballRightClamp - ballCentre).length() < ballRadius)
+    {
+        return true;
+    }
+
+    return false;
 }

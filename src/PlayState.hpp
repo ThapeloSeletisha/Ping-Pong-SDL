@@ -16,6 +16,7 @@ private:
     void detectCollisions();
     void ballPaddleCollission(int ballRadius, Vector2D ballCentre);
     void ballEdgeCollision(int ballRadius, Vector2D ballCentre);
+    bool gameOver(int ballRadius, Vector2D ballCentre);
 
 public:
 
