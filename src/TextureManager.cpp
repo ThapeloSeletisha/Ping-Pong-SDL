@@ -2,6 +2,29 @@
 
 TextureManager* TextureManager::s_pInstance = nullptr;
 
+// create init() function separate from constructor
+TextureManager::TextureManager()
+{
+
+}
+
+bool TextureManager::I_init()
+{
+    int flags = IMG_INIT_PNG;
+    if( !( IMG_Init( flags ) & flags ) )
+    {
+        cout <<  "Failed to initialize SDL_image" << endl;
+        cout << "SDL error: " <<  IMG_GetError() << endl;
+        return false; 
+    }
+    return true;
+}
+
+bool TextureManager::init()
+{
+    return Instance()->I_init();
+}
+
 TextureManager* TextureManager::Instance()
 {
     if (!s_pInstance)
@@ -70,4 +93,24 @@ void TextureManager::draw(string id, int x, int y, int width, int height,
     SDL_Renderer* renderer, SDL_RendererFlip flip)
 {
     Instance()->I_draw(id, x, y, width, height, renderer, flip);
+}
+
+void TextureManager::I_clean()
+{
+    for (auto element : m_textureMap)
+    {
+        SDL_DestroyTexture(element.second);
+        delete element.second;
+        element.second = nullptr;
+    }
+    m_textureMap.clear();
+
+    IMG_Quit();
+}
+
+void TextureManager::clean()
+{
+    Instance()->I_clean();
+    delete s_pInstance;
+    s_pInstance = nullptr;
 }

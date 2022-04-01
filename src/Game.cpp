@@ -52,6 +52,13 @@ bool Game::I_init(const char* title, int x, int y, int w, int h)
         cout << "SDL Error: " << SDL_GetError() << endl;
         return false;
     }
+
+    if (!TextureManager::init())
+    {
+        // the TextureManager will print the error itself
+        return false;
+    }
+    
     SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 
     GameStateMachine::pushState(new MenuState());
@@ -118,7 +125,7 @@ void Game::update()
 
 void Game::I_clean()
 {
-    // empty
+    TextureManager::clean();
 }
 
 /*

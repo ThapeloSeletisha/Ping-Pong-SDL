@@ -12,7 +12,8 @@ class TextureManager
 private:
     map<string, SDL_Texture*> m_textureMap;
     static TextureManager* s_pInstance;
-    TextureManager(){};
+    TextureManager();
+    bool I_init();
 
     static TextureManager* Instance();
 
@@ -23,10 +24,14 @@ private:
     void I_draw(string id, int x, int y, int width, int height,
                 SDL_Renderer* renderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+    void I_clean();
+
 public:
 
+    static bool init();
     static bool loadTexture(string id, string fileName, SDL_Renderer* renderer);
     static void removeTexture(string id);
     static void draw(string id, int x, int y, int width, int height,
               SDL_Renderer* renderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
+    static void clean();
 };
