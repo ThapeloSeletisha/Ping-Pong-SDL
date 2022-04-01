@@ -126,6 +126,16 @@ void Game::update()
 void Game::I_clean()
 {
     TextureManager::clean();
+
+    SDL_DestroyRenderer(m_pRenderer);
+    delete m_pRenderer;
+    m_pRenderer = nullptr;
+
+    SDL_DestroyWindow(m_pWindow);
+    delete m_pWindow;
+    m_pWindow = nullptr;
+
+    SDL_Quit();
 }
 
 /*
@@ -133,6 +143,8 @@ void Game::I_clean()
 void Game::clean()
 {
     Instance()->I_clean();
+    delete s_pInstance;
+    s_pInstance = nullptr;
 }
 
 void Game::I_quit()
