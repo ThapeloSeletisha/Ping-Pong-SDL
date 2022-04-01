@@ -128,11 +128,9 @@ void Game::I_clean()
     TextureManager::clean();
 
     SDL_DestroyRenderer(m_pRenderer);
-    delete m_pRenderer;
     m_pRenderer = nullptr;
 
     SDL_DestroyWindow(m_pWindow);
-    delete m_pWindow;
     m_pWindow = nullptr;
 
     SDL_Quit();
@@ -165,8 +163,6 @@ SDL_Renderer* Game::I_getRenderer()
 }
 
 /*
-Args:
-
 Returns:
     The renderer for the SDL_Window
 */ 

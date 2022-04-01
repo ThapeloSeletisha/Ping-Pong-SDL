@@ -6,7 +6,6 @@ using namespace std;
 
 const int FPS = 60;
 const int MS_PER_FRAME = 1000.0 / FPS;
-
 Uint32 frameStart;
 
 void frameDelay(Uint32 frameTime);
@@ -31,6 +30,7 @@ int main(int argc, char* args[])
         frameDelay(SDL_GetTicks() - frameStart);
     }
 
+    Game::clean();
     return 0;
 }
 

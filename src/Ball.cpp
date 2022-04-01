@@ -51,6 +51,12 @@ void Ball::handleInput()
     
 }
 
+/*Changes the direction of the ball's velocity in some axis
+
+Args:
+    direction (Side): enum to specify to what direction the ball should bounce
+
+*/
 void Ball::bounce(Side direction)
 {
     switch (direction){
@@ -73,5 +79,4 @@ void Ball::bounce(Side direction)
         default:
             break;
     }
-
 }

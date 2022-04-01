@@ -3,12 +3,12 @@
 
 const StateID MenuState::s_ID = MENU;
 
-void MenuState::menuToPlay()
+void MenuState::menuToPlay() // callback function
 {
     GameStateMachine::changeState(new PlayState());
 }
 
-void MenuState::exitFromMenu()
+void MenuState::exitFromMenu() // callback function
 {
     GameStateMachine::popState();
     Game::quit();
@@ -16,10 +16,7 @@ void MenuState::exitFromMenu()
 
 void MenuState::update()
 {
-    if (InputHandler::getMouseButtonState(LEFT))
-    {
-        GameStateMachine::changeState(new PlayState());
-    }
+    
 }
 
 void MenuState::render()
@@ -29,7 +26,10 @@ void MenuState::render()
 
 void MenuState::handleInput()
 {
-    
+    if (InputHandler::getMouseButtonState(LEFT))
+    {
+        GameStateMachine::changeState(new PlayState());
+    }
 }
 
 bool MenuState::onEnter()

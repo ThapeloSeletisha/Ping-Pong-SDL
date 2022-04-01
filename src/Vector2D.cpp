@@ -101,6 +101,17 @@ Vector2D& Vector2D::operator/=(double scalar)
     return *this;
 }
 
+/*Clamps the values of a point to some range
+
+Args:
+    corner_1 (Vector2D): coordinate of one corner of the rectangle
+    corner_2 (Vector2D): coordinate of another corner of the rectangle
+    point (Vector2D): the point which we are finding the closest point to
+
+Returns:
+    Vector2D: Returns the coordinate of the closest point on a rectangle's perimeter to some other point
+
+*/
 Vector2D Vector2D::clampVector(Vector2D corner_1, Vector2D corner_2, Vector2D point)
 {
     int x = clampScalar(corner_1.getX(), corner_2.getX(), point.getX());
@@ -108,6 +119,16 @@ Vector2D Vector2D::clampVector(Vector2D corner_1, Vector2D corner_2, Vector2D po
     return Vector2D(x, y);
 }
 
+/*Clamps the some value to some interval
+
+Args:
+    boundery_1 (int): the upper/lower bound of the range
+    boundary_2 (int): the other bound of the range
+    value (int): the value which is to be clamps
+
+Returns:
+    int: a value in the range thats closest to the given value
+*/
 int Vector2D::clampScalar(int boundary_1, int boundary_2, int value)
 {
     if (value > max(boundary_1, boundary_2))

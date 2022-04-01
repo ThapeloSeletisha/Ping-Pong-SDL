@@ -89,8 +89,6 @@ void InputHandler::I_update()
     }
 }
 
-/*Updates member variables when there is a new event
-*/
 void InputHandler::update()
 {
     Instance()->I_update();
@@ -102,8 +100,6 @@ void InputHandler::I_clean()
     s_pInstance = nullptr;
 }
 
-/*
-*/
 void InputHandler::clean()
 {
     Instance()->I_clean();

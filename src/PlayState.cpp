@@ -47,7 +47,8 @@ StateID PlayState::getStateID() const
     return s_ID;
 }
 
-
+/*Detect and handle collisions
+*/
 void PlayState::detectCollisions()
 {
     Vector2D ballCentre;
@@ -64,6 +65,12 @@ void PlayState::detectCollisions()
     }
 }
 
+/*Detects and handles ball-paddle collisions
+
+Args:
+    ballRadius (int): ball radius in pixels
+    ballCentre (Vector2D): vector coordinate of ball's centre
+*/
 void PlayState::ballPaddleCollission(int ballRadius, Vector2D ballCentre)
 {
     int paddleWidth = m_leftPaddle.getWidth();
@@ -143,6 +150,12 @@ void PlayState::ballPaddleCollission(int ballRadius, Vector2D ballCentre)
     }
 }
 
+/*Detects and handles ball-window edge collisions (only for horizontal edges)
+
+Args:
+    ballRadius (int): ball radius in pixels
+    ballCentre (Vector2D): vector coordinate of ball's centre
+*/
 void PlayState::ballEdgeCollision(int ballRadius, Vector2D ballCentre)
 {
     int windowWidth, windowHeight;
@@ -167,6 +180,12 @@ void PlayState::ballEdgeCollision(int ballRadius, Vector2D ballCentre)
     }
 }
 
+/*Detects whether the ball is out of the windows bounds
+
+Args:
+    ballRadius (int): ball radius in pixels
+    ballCentre (Vector2D): vector coordinate of ball's centre
+*/
 bool PlayState::gameOver(int ballRadius, Vector2D ballCentre)
 {
     int windowWidth, windowHeight;

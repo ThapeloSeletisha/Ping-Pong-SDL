@@ -2,7 +2,6 @@
 
 TextureManager* TextureManager::s_pInstance = nullptr;
 
-// create init() function separate from constructor
 TextureManager::TextureManager()
 {
 
@@ -35,9 +34,9 @@ TextureManager* TextureManager::Instance()
 }
 
 bool TextureManager::I_loadTexture(
-    string id, string fileName, SDL_Renderer* renderer)
+    string id, string path, SDL_Renderer* renderer)
 {
-    SDL_Surface* tempSurface = IMG_Load(fileName.c_str());
+    SDL_Surface* tempSurface = IMG_Load(path.c_str());
 
     if (!tempSurface)
     {
@@ -79,16 +78,42 @@ void TextureManager::I_draw(string id, int x, int y, int width, int height,
                      nullptr, &destRect, 0, 0, flip);
 }
 
-bool TextureManager::loadTexture(string id, string fileName, SDL_Renderer* renderer)
+/*Loads textures for rendering
+
+Args:
+    id (string): an identifier for the texture
+    path (string): the path of the image
+    renderer (SDL_Renderer*): a renderer for the window
+
+Returns:
+    bool: True on success and false on failure
+*/
+bool TextureManager::loadTexture(string id, string path, SDL_Renderer* renderer)
 {
-    return Instance()->I_loadTexture(id, fileName, renderer);
+    return Instance()->I_loadTexture(id, path, renderer);
 }
 
+/*Deload texture (remove from map)
+
+Args:
+    id (string): identifier for the texture
+*/
 void TextureManager::removeTexture(string id)
 {
     Instance()->I_removeTexture(id);
 }
 
+/*Renders a texture to the renderer
+
+Args:
+    id (string): identifier for the texture
+    x (int): the horizontal position of top left corner in pixels
+    y (int): the vertical position of top left corner in pixels
+    width (int): the width of the rendering in pixels
+    height (int): the height of the rendering in pixels
+    renderer (SDLRenderer*): renderer for the window
+    flip (SDL_RendererFlip): flag for flipping texture
+*/
 void TextureManager::draw(string id, int x, int y, int width, int height,
     SDL_Renderer* renderer, SDL_RendererFlip flip)
 {
@@ -100,7 +125,6 @@ void TextureManager::I_clean()
     for (auto element : m_textureMap)
     {
         SDL_DestroyTexture(element.second);
-        delete element.second;
         element.second = nullptr;
     }
     m_textureMap.clear();
