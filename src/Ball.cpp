@@ -4,7 +4,7 @@
 Ball::Ball(int radius)
 {
     string path = "assets/ball.png";
-    TextureManager::loadTexture("ball", path, Game::getRenderer());
+    TextureManager::loadImageTexture("ball", path, Game::getRenderer());
 
     int windowWidth, windowHeight;
     SDL_GetRendererOutputSize(Game::getRenderer(),
@@ -32,7 +32,7 @@ Ball::~Ball()
 
 void Ball::draw()
 {
-    TextureManager::draw("ball", m_position.getX(), m_position.getY(),
+    TextureManager::drawImage("ball", m_position.getX(), m_position.getY(),
         m_width, m_height, Game::getRenderer());
 }
 

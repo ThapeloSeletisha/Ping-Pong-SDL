@@ -10,6 +10,7 @@ void PlayState::update()
     m_ball.update();
     m_leftPaddle.update();
     m_rightPaddle.update();
+    m_score.update();
 }
 
 void PlayState::handleInput()
@@ -27,12 +28,14 @@ void PlayState::render()
     m_leftPaddle.draw();
     m_rightPaddle.draw();
     m_ball.draw();
+    m_score.draw();
 }
 
 bool PlayState::onEnter()
 {
     m_leftPaddle = Paddle(LEFT);
     m_rightPaddle = Paddle(RIGHT);
+    m_score = Score(0);
     cout << "entering PlayState" << endl;
     return true;
 }
@@ -93,6 +96,7 @@ void PlayState::ballPaddleCollission(int ballRadius, Vector2D ballCentre)
 
     if ((ballLeftPaddleClamp - ballCentre).length() < ballRadius)
     {
+        m_score.increase();
         cout << "left paddle collision" << endl;
         if (ballLeftPaddleClamp.getX() == leftPaddleCornerBR.getX())
         {
@@ -121,6 +125,7 @@ void PlayState::ballPaddleCollission(int ballRadius, Vector2D ballCentre)
     }
     else if ((ballRightPaddleClamp - ballCentre).length() < ballRadius)
     {
+        m_score.increase();
         cout << "right paddle collision" << endl;
         if (ballRightPaddleClamp.getX() == rightPaddleCornerTL.getX())
         {

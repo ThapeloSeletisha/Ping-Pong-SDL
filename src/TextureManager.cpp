@@ -9,12 +9,19 @@ TextureManager::TextureManager()
 
 bool TextureManager::I_init()
 {
-    int flags = IMG_INIT_PNG;
+    int flags = IMG_INIT_PNG | IMG_INIT_JPG;
     if( !( IMG_Init( flags ) & flags ) )
     {
         cout <<  "Failed to initialize SDL_image" << endl;
         cout << "SDL error: " <<  IMG_GetError() << endl;
         return false; 
+    }
+
+    if (TTF_Init())
+    {
+        cout << "Failed to initialize SDL_ttf" << endl;
+        cout << "TTF Error: " << TTF_GetError() << endl;
+        return false;
     }
     return true;
 }
@@ -33,12 +40,12 @@ TextureManager* TextureManager::Instance()
     return s_pInstance;
 }
 
-bool TextureManager::I_loadTexture(
-    string id, string path, SDL_Renderer* renderer)
+bool TextureManager::I_loadImageTexture(
+    string id, string imagePath, SDL_Renderer* renderer)
 {
-    SDL_Surface* tempSurface = IMG_Load(path.c_str());
+    SDL_Surface* surface = IMG_Load(imagePath.c_str());
 
-    if (!tempSurface)
+    if (!surface)
     {
         cout << "Failed to load image" << endl;
         cout << SDL_GetError() << endl;
@@ -46,7 +53,7 @@ bool TextureManager::I_loadTexture(
     }
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface
-                            (Game::getRenderer(), tempSurface);
+                            (Game::getRenderer(), surface);
     if(!texture)
     {
         cout << "Failed to create texture" << endl;
@@ -54,18 +61,64 @@ bool TextureManager::I_loadTexture(
         return false;
     }
 
-    m_textureMap[id] = texture;
+    SDL_FreeSurface(surface);
+    surface = nullptr;
 
-    SDL_FreeSurface(tempSurface);
+    m_textureMap[id] = texture;
     return true;
+}
+
+bool TextureManager::I_loadTextTexture(string id, string fontPath, 
+    SDL_Colour colour, int size, string text, SDL_Renderer* renderer)
+{
+    TTF_Font* font = TTF_OpenFont(fontPath.c_str(), size);
+    if (!font)
+    {
+        cout << "Failed to open font" << endl;
+        cout << "TTF Error:" << TTF_GetError() << endl;
+        return false;
+    }
+
+    SDL_Surface* surface = TTF_RenderText_Solid(
+        font, text.c_str(), colour);
+    if (!surface) 
+    {
+        cout << "Failed to create text surface" << endl;
+        cout << "TTF Error: " << TTF_GetError() << endl;
+        return false;
+    }
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(
+        renderer, surface);
+    if (!texture)
+    {
+        cout << "Failed to create text texture" << endl;
+        cout << "TTF Error: " << TTF_GetError() << endl;
+        return false;
+    }
+
+    SDL_FreeSurface(surface);
+    surface = nullptr;
+
+    m_textureMap[id] = texture;
+    return true;
+}
+
+bool TextureManager::loadTextTexture(string id, string fontPath, 
+    SDL_Colour colour, int size, string text, SDL_Renderer* renderer)
+{
+    return Instance()->I_loadTextTexture(
+        id, fontPath, colour, size, text, renderer);
 }
 
 void TextureManager::I_removeTexture(string id)
 {
+    SDL_DestroyTexture(m_textureMap[id]);
+    m_textureMap[id] = nullptr;
     m_textureMap.erase(id);
 }
 
-void TextureManager::I_draw(string id, int x, int y, int width, int height,
+void TextureManager::I_drawImage(string id, int x, int y, int width, int height,
     SDL_Renderer* renderer, SDL_RendererFlip flip)
 {
     SDL_Rect destRect;
@@ -78,19 +131,56 @@ void TextureManager::I_draw(string id, int x, int y, int width, int height,
                      nullptr, &destRect, 0, 0, flip);
 }
 
+void TextureManager::I_drawText(string id, int x, int y, SDL_Renderer* renderer, 
+    SDL_RendererFlip flip)
+{
+    int textureWidth, textureHeight;
+    SDL_QueryTexture(m_textureMap[id], nullptr, nullptr, &textureWidth, &textureHeight);
+
+    int windowWidth, windowHeight;
+    SDL_GetRendererOutputSize(Game::getRenderer(), &windowWidth, &windowHeight);
+
+    switch (x)
+    {
+    case HORIZONTAL_CENTRE:
+        x = (windowWidth - textureWidth) / 2;
+        break;
+    default:
+        break;
+    };
+
+    switch (y)
+    {
+    case VERTICAL_CENTRE:
+        y = (windowHeight - textureHeight) / 2;
+        break;
+    default:
+        break;
+    };
+
+    Instance()->I_drawImage(id, x, y, textureWidth, textureHeight, renderer, flip);
+
+}
+
+void TextureManager::drawText(string id, int x, int y, SDL_Renderer* renderer, 
+    SDL_RendererFlip flip)
+{
+    Instance()->I_drawText(id, x, y, renderer, flip);
+}
+
 /*Loads textures for rendering
 
 Args:
     id (string): an identifier for the texture
-    path (string): the path of the image
+    imagePath (string): the imagePath of the image
     renderer (SDL_Renderer*): a renderer for the window
 
 Returns:
     bool: True on success and false on failure
 */
-bool TextureManager::loadTexture(string id, string path, SDL_Renderer* renderer)
+bool TextureManager::loadImageTexture(string id, string imagePath, SDL_Renderer* renderer)
 {
-    return Instance()->I_loadTexture(id, path, renderer);
+    return Instance()->I_loadImageTexture(id, imagePath, renderer);
 }
 
 /*Deload texture (remove from map)
@@ -114,10 +204,10 @@ Args:
     renderer (SDLRenderer*): renderer for the window
     flip (SDL_RendererFlip): flag for flipping texture
 */
-void TextureManager::draw(string id, int x, int y, int width, int height,
+void TextureManager::drawImage(string id, int x, int y, int width, int height,
     SDL_Renderer* renderer, SDL_RendererFlip flip)
 {
-    Instance()->I_draw(id, x, y, width, height, renderer, flip);
+    Instance()->I_drawImage(id, x, y, width, height, renderer, flip);
 }
 
 void TextureManager::I_clean()
@@ -129,6 +219,7 @@ void TextureManager::I_clean()
     }
     m_textureMap.clear();
 
+    TTF_Quit();
     IMG_Quit();
 }
 
