@@ -18,7 +18,7 @@ void Score::loadTexture(string id, string path,
 
 void Score::draw()
 {
-    TextureManager::drawText("score", HORIZONTAL_CENTRE, 30,
+    TextureManager::drawText("score", HORIZONTAL_CENTRE, 15,
         Game::getRenderer());
 }
 
