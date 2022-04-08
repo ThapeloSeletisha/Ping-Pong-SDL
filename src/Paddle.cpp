@@ -29,6 +29,7 @@ Paddle::Paddle(Side side)
     default:
         break;
     }
+    m_speed = 5;
 }
 
 void Paddle::draw()
@@ -54,10 +55,12 @@ void Paddle::update()
     // Bound paddle movement
     if (m_position.getY() < 0)
     {
+        cout << "Paddle at top" << endl;
         m_position.setY(0);
     }
     else if (m_position.getY() + m_height > windowHeight)
     {
+        cout << "Paddle at bottom" << endl;
         m_position.setY(windowHeight - m_height);
     }
 }
@@ -78,12 +81,17 @@ void Paddle::handleInput()
         m_velocity.setY(0);
     }
     else if (up) {
-        m_velocity.setY(-5);
+        m_velocity.setY(-m_speed);
     }
     else if (down)
     {
-        m_velocity.setY(5);
+        m_velocity.setY(m_speed);
     } else {
         m_velocity.setY(0);
     }
+}
+
+void Paddle::speedUp()
+{
+    GameObject::speedUp();
 }

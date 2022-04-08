@@ -10,6 +10,7 @@ class GameObject
 { 
 protected:
     Vector2D m_position, m_velocity, m_acceleration;
+    int m_speed;
     int m_width, m_height;
     
 public:
@@ -20,6 +21,7 @@ public:
     virtual void update() = 0;
     virtual void clean() = 0;
     virtual void handleInput() = 0;
+    void speedUp() {m_speed++; }
 
     virtual Vector2D getPosition() {return m_position;};
     virtual int getWidth() {return m_width;};

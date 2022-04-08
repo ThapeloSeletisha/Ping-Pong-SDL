@@ -19,4 +19,6 @@ public:
     void update();
     void clean();
     void handleInput();
+
+    void speedUp();
 };

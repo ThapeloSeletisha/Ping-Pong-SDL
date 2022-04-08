@@ -20,8 +20,9 @@ Ball::Ball(int radius)
     m_height = radius * 2;
 
     // Randomizes between -3 and 3 for both axis
-    m_velocity.setX(6 * (rand() % 2) - 3);
-    m_velocity.setY(6 * (rand() % 2) - 3);
+    m_speed = 3;
+    m_velocity.setX(2 * m_speed * (rand() % 2) - m_speed);
+    m_velocity.setY(2 * m_speed * (rand() % 2) - m_speed);
 }
 
 Ball::~Ball()
@@ -49,6 +50,16 @@ void Ball::clean()
 void Ball::handleInput()
 {
     
+}
+
+void Ball::speedUp()
+{
+    GameObject::speedUp();
+    m_velocity.setX(
+        m_velocity.getX() / abs(m_velocity.getX()) * m_speed);
+    m_velocity.setY(
+        m_velocity.getY() / abs(m_velocity.getY()) * m_speed);
+
 }
 
 /*Changes the direction of the ball's velocity in some axis
