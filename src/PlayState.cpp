@@ -97,7 +97,6 @@ void PlayState::ballPaddleCollission(int ballRadius, Vector2D ballCentre)
     if ((ballLeftPaddleClamp - ballCentre).length() < ballRadius)
     {
         m_score.increase();
-        cout << "left paddle collision" << endl;
         if (ballLeftPaddleClamp.getX() == leftPaddleCornerBR.getX())
         {
             m_ball.bounce(RIGHT);
@@ -127,7 +126,6 @@ void PlayState::ballPaddleCollission(int ballRadius, Vector2D ballCentre)
     {
         m_score.increase();
         speedUp();
-        cout << "right paddle collision" << endl;
         if (ballRightPaddleClamp.getX() == rightPaddleCornerTL.getX())
         {
             m_ball.bounce(LEFT);

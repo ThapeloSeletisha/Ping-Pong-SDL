@@ -16,7 +16,6 @@ Paddle::Paddle(Side side)
         break;
 
     case MIDDLE:
-        cout << "Paddle may not be in the middle" << endl;
         break;
 
     case RIGHT:
@@ -55,12 +54,10 @@ void Paddle::update()
     // Bound paddle movement
     if (m_position.getY() < 0)
     {
-        cout << "Paddle at top" << endl;
         m_position.setY(0);
     }
     else if (m_position.getY() + m_height > windowHeight)
     {
-        cout << "Paddle at bottom" << endl;
         m_position.setY(windowHeight - m_height);
     }
 }

@@ -40,8 +40,6 @@ void Score::handleInput()
 void Score::increase()
 {
     m_points++;
-
-    cout << m_points << endl;
     TextureManager::removeTexture("score");
 
     loadTexture("score", "fonts/font.ttf", 45, to_string(m_points), 
